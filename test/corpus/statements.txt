@@ -1,0 +1,18 @@
+==================
+example formulae
+==================
+
+=sum(1, 2, 3)
+
+---
+
+(source_file [0, 0] - [1, 0]
+  (expression [0, 1] - [0, 13]
+    (function_call [0, 1] - [0, 13]
+      (identifier [0, 1] - [0, 4])
+      (expression [0, 5] - [0, 6]
+        (number [0, 5] - [0, 6]))
+      (expression [0, 8] - [0, 9]
+        (number [0, 8] - [0, 9]))
+      (expression [0, 11] - [0, 12]
+        (number [0, 11] - [0, 12])))))

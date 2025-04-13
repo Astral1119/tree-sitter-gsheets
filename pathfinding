@@ -1,0 +1,46 @@
+=ArrayFormula(
+  let(
+    orthogonal, {1,0,-1,0;0,1,0,-1},
+    source, display!B3:T21,
+    ids, column(source)&" "&row(source),
+    types, tocol(source),
+    starting, filter(tocol(ids), types="s"),
+    terminating, filter(tocol(ids), types="t"),
+    nodes, filter(tocol(ids), types<>1),
+    compress, lambda(input, query(input, "select Col1, min(Col2) group by Col1 label min(Col2)''",)),
+    initialized, compress({starting, 0; ifna(hstack(nodes, 9^9), 9^9)}),
+    findneighbors, lambda(from, tocol(map(from, lambda(indiv,query(tocol(split(indiv," "))+orthogonal,,9^9))),3)),
+    function, lambda(
+      function, array, n,
+      let(current,filter(index(array,,1),index(array,,2)=n-1),
+        rawneighbors,findneighbors(current),
+        neighbors,unique(filter(rawneighbors,condition_one_of_range(rawneighbors,nodes))),
+        if(or(ifna(vlookup(terminating,array,2,)<9^9),iserror(current)),
+          array,
+          function(function,compress({array;ifna(hstack(neighbors,n),n)}),n+1)))),
+    output,function(function,{starting,0},1),
+    path, scan(
+      ,
+      sequence(max(output)),
+      lambda(
+        last, n,
+        iferror(
+          sortn(
+            vlookup(findneighbors(single(last)), output, {1, 2},),
+            1,, 2, 1
+          ),
+          vlookup(terminating, output, {1, 2},)
+        )
+      )
+    ),
+    iferror(
+      ifs(
+        source, 1,
+        condition_one_of_range(ids, path),
+        "x",
+        1,
+        condition_one_of_range(ids, output)
+      ),
+      "x"
+    )
+  ))
