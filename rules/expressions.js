@@ -15,21 +15,24 @@ module.exports = {
     $.function_call,
   ),
 
+  open_paren: $ => '(',
+  close_paren: $ => ')',
+
   parenthesized_expression: $ => seq(
-    field('open_paren', '('),
+    $.open_paren,
     $.expression,
-    field('close_paren', ')')
+    $.close_paren
   ),
 
   function_call: $ => prec(10, seq(
     $.identifier,
-    field('open_paren', '('),
+    $.open_paren,
     optional(seq(
       repeat(seq(
         $.expression,
         optional(seq(',', optional($.expression)))
       )),
     )),
-    field('close_paren', ')')
+    $.close_paren
   )),
 }
