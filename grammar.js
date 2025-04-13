@@ -19,8 +19,4 @@ module.exports = grammar({
     ...require('./rules/expressions'),
     ...require('./rules/identifier'),
   },
-
-  conflicts: $ => [
-    [$.continuer, $.cell],
-  ],
 });

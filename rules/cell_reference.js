@@ -1,28 +1,18 @@
 module.exports = {
-  cell_reference: $ => prec.dynamic(-1, seq(
+  cell_reference: $ => prec.left(5,
+    choice(
+      seq($.cell_reference, ":", $.atomic_reference),
+      $.atomic_reference
+    )
+  ),
+
+  atomic_reference: $ => seq(
     optional(seq($.sheet, '!')),
     choice(
-      $.range,
       $.cell,
       $.row_range,
       $.column_range
     )
-  )),
-
-  range: $ => seq(
-    $.starter,
-    repeat1(seq(':', $.continuer))
-  ),
-
-  starter: $ => choice(
-    $.cell,
-    $.row_range,
-    $.column_range
-  ),
-
-  continuer: $ => choice(
-    $.cell,
-    $.column
   ),
 
   cell: $ => seq(
@@ -30,7 +20,7 @@ module.exports = {
     $.row
   ),
 
-  column: $ => /[A-Z]+/,
+  column: $ => /[A-Z]{1,3}/,
 
   row: $ => /[0-9]+/,
 
@@ -57,5 +47,5 @@ module.exports = {
     "'"
   ),
 
-  unquoted_sheet: $ => prec(-1, /[a-zA-Z0-9_]+/)
+  unquoted_sheet: $ => /[a-zA-Z0-9_]+/
 }
