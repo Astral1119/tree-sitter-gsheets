@@ -163,38 +163,25 @@
   {
     "type": "function_call",
     "named": true,
-    "fields": {
-      "close_paren": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": ")",
-            "named": false
-          }
-        ]
-      },
-      "open_paren": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "close_paren",
+          "named": true
+        },
         {
           "type": "expression",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "open_paren",
           "named": true
         }
       ]
@@ -226,34 +213,21 @@
   {
     "type": "parenthesized_expression",
     "named": true,
-    "fields": {
-      "close_paren": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": ")",
-            "named": false
-          }
-        ]
-      },
-      "open_paren": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "close_paren",
+          "named": true
+        },
+        {
           "type": "expression",
+          "named": true
+        },
+        {
+          "type": "open_paren",
           "named": true
         }
       ]
@@ -368,14 +342,6 @@
     "named": false
   },
   {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
-    "named": false
-  },
-  {
     "type": "*",
     "named": false
   },
@@ -436,6 +402,10 @@
     "named": false
   },
   {
+    "type": "close_paren",
+    "named": true
+  },
+  {
     "type": "column",
     "named": true
   },
@@ -445,6 +415,10 @@
   },
   {
     "type": "number",
+    "named": true
+  },
+  {
+    "type": "open_paren",
     "named": true
   },
   {
