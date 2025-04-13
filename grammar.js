@@ -17,6 +17,5 @@ module.exports = grammar({
     ...require('./rules/cell_reference'),
     ...require('./rules/operators'),
     ...require('./rules/expressions'),
-    ...require('./rules/identifier'),
   },
 });

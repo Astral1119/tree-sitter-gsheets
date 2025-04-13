@@ -10,9 +10,7 @@ module.exports = {
     ),
 
     // binary operators
-    seq(
-      $.expression,
-      $.binary_operator,
+    seq( $.expression, $.binary_operator,
       $.expression
     )
   )),
@@ -33,6 +31,7 @@ module.exports = {
     '<',
     '=',
     '<=',
-    '>='
+    '>=',
+    ':',
   ),
 };
