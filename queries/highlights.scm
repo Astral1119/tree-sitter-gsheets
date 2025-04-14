@@ -1,31 +1,66 @@
-;; Literals
-(number) @number
+; Keywords
+[
+  "TRUE"
+  "FALSE"
+] @constant.builtin
+
+; Error literals
+[
+  "#DIV/0!"
+  "#ERROR!"
+  "#N/A"
+  "#NAME?"
+  "#NULL!"
+  "#NUM!"
+  "#REF!"
+  "#VALUE!"
+] @constant.builtin
+
+; Operators
+[
+  "+"
+  "-"
+  "*"
+  "/"
+  "^"
+  "&"
+  "%"
+  "="
+  "<"
+  ">"
+  "<="
+  ">="
+] @operator
+
+; Delimiters and punctuation
+[
+  ","
+  ":"
+  ";"
+  "("
+  ")"
+  "{"
+  "}"
+] @punctuation.delimiter
+
+; Literals
 (string) @string
-(boolean) @boolean
+(number) @number
+(boolean) @constant.builtin
 
-;; Identifiers and references
+; Identifiers
 (identifier) @variable
-(cell_reference) @variable.builtin
 
-;; Error
-(error_literal) @error
+; Function calls
+(function_call
+  name: (identifier) @function)
 
-;; Expressions
+; Cell references and patterns
+(cell_reference) @variable
+(cell_pattern) @variable
+
+; Expressions
 (expression) @expression
 (operator_expression) @operator
-(unary_operator) @operator
-(binary_operator) @operator
-
-;; Functions
-(function_call
-  (identifier) @function)
-
-;; Parentheses
-(open_paren) @punctuation.bracket
-(close_paren) @punctuation.bracket
-
-;; Arrays
-(array_literal) @constant
-
-;; Row/column constructs
-(cell_reference) @field
+(parenthesized_expression) @punctuation.bracket
+(array_literal) @punctuation.bracket

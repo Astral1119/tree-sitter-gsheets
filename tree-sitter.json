@@ -38,5 +38,17 @@
     "rust": true,
     "swift": true,
     "zig": false
+  },
+  "highlights": "queries/highlights.scm",
+  "theme": {
+    "constant.builtin": "purple",
+    "operator": "red",
+    "punctuation.delimiter": "gray",
+    "punctuation.bracket": "gray",
+    "string": "green",
+    "number": "orange",
+    "variable": "blue",
+    "function": "cyan",
+    "expression": "white"
   }
 }
