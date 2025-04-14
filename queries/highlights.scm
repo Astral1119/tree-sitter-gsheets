@@ -39,11 +39,12 @@
   ","
   ":"
   ";"
-  "("
-  ")"
+] @punctuation.delimiter
+
+[
   "{"
   "}"
-] @punctuation.delimiter
+] @punctuation.bracket
 
 ; Literals
 (string) @string
@@ -55,7 +56,7 @@
 
 ; Function calls
 (function_call
-  name: (identifier) @function)
+  function_name: (identifier) @function)
 
 ; Cell references and patterns
 (cell_reference) @variable
