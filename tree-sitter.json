@@ -39,16 +39,5 @@
     "rust": true,
     "swift": true,
     "zig": false
-  },
-  "theme": {
-    "constant.builtin": "purple",
-    "operator": "red",
-    "punctuation.delimiter": "gray",
-    "punctuation.bracket": "gray",
-    "string": "green",
-    "number": "orange",
-    "variable": "blue",
-    "function": "cyan",
-    "expression": "white"
   }
 }
