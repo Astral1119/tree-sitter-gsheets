@@ -3,7 +3,7 @@
   "grammars": [
     {
       "name": "gsheets",
-      "camelcase": "gSheets",
+      "camelcase": "GoogleSheets",
       "title": "Google Sheets",
       "scope": "source.gsheets",
       "file-types": [
