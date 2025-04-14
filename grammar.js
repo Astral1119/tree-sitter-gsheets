@@ -13,8 +13,8 @@ module.exports = grammar({
 
   rules: {
     source_file: $ => seq("=", $.expression),
-    ...require('./rules/basic_types'),
     ...require('./rules/cell_reference'),
+    ...require('./rules/basic_types'),
     ...require('./rules/operators'),
     ...require('./rules/expressions'),
   },

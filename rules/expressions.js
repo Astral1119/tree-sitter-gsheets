@@ -1,7 +1,5 @@
 module.exports = {
   expression: $ => choice(
-    $.identifier,
-
     $.number,
     $.string,
     $.boolean,
@@ -13,6 +11,8 @@ module.exports = {
 
     $.parenthesized_expression,
     $.function_call,
+
+    $.identifier,
   ),
 
   open_paren: $ => '(',
