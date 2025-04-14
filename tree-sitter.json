@@ -11,6 +11,7 @@
         "gse",
         "gsf"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^gsheets$",
       "class-name": "TreeSitterGsheets"
     }
@@ -39,7 +40,6 @@
     "swift": true,
     "zig": false
   },
-  "highlights": "queries/highlights.scm",
   "theme": {
     "constant.builtin": "purple",
     "operator": "red",
