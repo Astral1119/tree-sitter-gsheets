@@ -1,3 +1,7 @@
+function sepBy(sep, rule) {
+  return seq(rule, repeat(seq(sep, rule)));
+}
+
 module.exports = {
   expression: $ => choice(
     $.number,
@@ -24,12 +28,7 @@ module.exports = {
   function_call: $ => prec(10, seq(
     field("function_name", $.identifier),
     "(",
-    optional(seq(
-      repeat(seq(
-        $.expression,
-        optional(seq(',', optional($.expression)))
-      )),
-    )),
+    optional(sepBy(",", optional($.expression))),
     ")"
   )),
 }
