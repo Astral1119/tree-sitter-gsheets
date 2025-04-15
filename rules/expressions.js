@@ -28,7 +28,7 @@ module.exports = {
   function_call: $ => prec(10, seq(
     field("function_name", $.identifier),
     "(",
-    optional(sepBy(",", optional($.expression))),
+    optional(sepBy(",", optional(field("argument", $.expression)))),
     ")"
   )),
 }
