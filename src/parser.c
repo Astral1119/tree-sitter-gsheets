@@ -17,7 +17,7 @@
 #define MAX_ALIAS_SEQUENCE_LENGTH 5
 #define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 2
-#define SUPERTYPE_COUNT 0
+#define SUPERTYPE_COUNT 1
 
 enum ts_symbol_identifiers {
   anon_sym_EQ = 1,
@@ -380,8 +380,9 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [sym_expression] = {
-    .visible = true,
+    .visible = false,
     .named = true,
+    .supertype = true,
   },
   [sym_parenthesized_expression] = {
     .visible = true,
@@ -474,6 +475,28 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [43] = 43,
   [44] = 44,
   [45] = 45,
+};
+
+static const TSSymbol ts_supertype_symbols[SUPERTYPE_COUNT] = {
+  sym_expression,
+};
+
+static const TSMapSlice ts_supertype_map_slices[] = {
+  [sym_expression] = {.index = 0, .length = 10},
+};
+
+static const TSSymbol ts_supertype_map_entries[] = {
+  [0] =
+    sym_array_literal,
+    sym_boolean,
+    sym_cell_reference,
+    sym_error_literal,
+    sym_function_call,
+    sym_identifier,
+    sym_number,
+    sym_operator_expression,
+    sym_parenthesized_expression,
+    sym_string,
 };
 
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
@@ -2468,6 +2491,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_gsheets(void) {
     .field_names = ts_field_names,
     .field_map_slices = ts_field_map_slices,
     .field_map_entries = ts_field_map_entries,
+    .supertype_map_slices = ts_supertype_map_slices,
+    .supertype_map_entries = ts_supertype_map_entries,
+    .supertype_symbols = ts_supertype_symbols,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,

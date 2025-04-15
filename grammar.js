@@ -11,6 +11,8 @@ module.exports = grammar({
   name: "gsheets",
   extras: $ => [/\s/],
 
+  supertypes: $ => [ $.expression ],
+
   rules: {
     source_file: $ => seq("=", $.expression),
     ...require('./rules/cell_reference'),

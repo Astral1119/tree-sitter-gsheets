@@ -2,7 +2,7 @@ module.exports = {
   number: $ => /\d+(\.\d+)?(e[+-]?\d+)?/, // number literal
   string: $ => /"(?:[^"\\]|\\.)*"/, // double-quoted string
   boolean: $ => choice('TRUE', 'FALSE'), // boolean literals
-  identifier: $ => prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/), // RESTORE original simple regex
+  identifier: $ => prec(-1, /[a-zA-Z_][a-zA-Z0-9_]*/),
 
   error_literal: $ => choice(
     '#NULL!',

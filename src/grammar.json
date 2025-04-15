@@ -507,6 +507,8 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
+  "supertypes": [
+    "expression"
+  ],
   "reserved": {}
 }
