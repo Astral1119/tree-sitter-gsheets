@@ -9,6 +9,10 @@ example formulae
 (source_file
   (function_call
     function_name: (identifier)
-    (number)
-    (number)
-    (number)))
+    arguments: (arguments
+      (argument
+        (number))
+      (argument
+        (number))
+      (argument
+        (number)))))

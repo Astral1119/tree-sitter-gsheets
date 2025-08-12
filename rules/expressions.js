@@ -32,12 +32,7 @@ module.exports = {
     // Dotted function name immediately followed by '('
     seq(
       field("function_name", alias(token(/[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z0-9_]+(?:\.[A-Za-z0-9_]+)*/), $.function_identifier)),
-      token.immediate("("),
-      optional(seq(
-        optional($.expression),
-        repeat(seq(',', optional($.expression)))
-      )),
-      ")"
+      field("arguments", $.arguments_immediate)
     ),
     // General callee forms
     seq(
@@ -46,12 +41,7 @@ module.exports = {
         $.function_call,
         $.parenthesized_expression,
       ),
-      "(",
-      optional(seq(
-        optional($.expression),
-        repeat(seq(',', optional($.expression)))
-      )),
-      ")"
+      field("arguments", $.arguments)
     )
   )),
 
@@ -62,4 +52,27 @@ module.exports = {
     '.',
     $.bracket_identifier
   )),
+
+  // Explicit argument nodes to improve indentation and tooling
+  argument: $ => $.expression,
+
+  // Standard arguments list: allows empty/missing args and trailing commas
+  arguments: $ => seq(
+    '(',
+    optional(seq(
+      optional($.argument),
+      repeat(seq(',', optional($.argument)))
+    )),
+    ')'
+  ),
+
+  // Immediate variant for dotted function identifiers requiring token.immediate('(')
+  arguments_immediate: $ => seq(
+    token.immediate('('),
+    optional(seq(
+      optional($.argument),
+      repeat(seq(',', optional($.argument)))
+    )),
+    ')'
+  ),
 }

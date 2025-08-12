@@ -9,14 +9,21 @@ dotted function name
 (source_file
   (function_call
     function_name: (function_identifier)
-    (operator_expression
-      (cell_reference (cell_pattern))
-      (binary_operator)
-      (cell_reference (cell_pattern)))
-    (operator_expression
-      (cell_reference (cell_pattern))
-      (binary_operator)
-      (cell_reference (cell_pattern)))))
+    arguments: (arguments_immediate
+      (argument
+        (operator_expression
+          (cell_reference
+            (cell_pattern))
+          (binary_operator)
+          (cell_reference
+            (cell_pattern))))
+      (argument
+        (operator_expression
+          (cell_reference
+            (cell_pattern))
+          (binary_operator)
+          (cell_reference
+            (cell_pattern)))))))
 
 =====================
 dotted sheet reference
@@ -28,7 +35,8 @@ dotted sheet reference
 
 (source_file
   (cell_reference
-    (sheet_reference (function_identifier))
+    (sheet_reference
+      (function_identifier))
     (cell_pattern)))
 
 =====================
@@ -42,9 +50,11 @@ bracketed property access
 (source_file
   (bracket_access
     (operator_expression
-      (cell_reference (cell_pattern))
+      (cell_reference
+        (cell_pattern))
       (binary_operator)
-      (cell_reference (cell_pattern)))
+      (cell_reference
+        (cell_pattern)))
     (bracket_identifier)))
 
 =====================
@@ -56,12 +66,19 @@ chained calls
 ---
 
 (source_file
- (function_call
   (function_call
-   (function_call
     (function_call
-     function_name: (identifier))
-    (number))
-   (string))
-  (cell_reference
-   (cell_pattern))))
+      (function_call
+        (function_call
+          function_name: (identifier)
+          arguments: (arguments))
+        arguments: (arguments
+          (argument
+            (number))))
+      arguments: (arguments
+        (argument
+          (string))))
+    arguments: (arguments
+      (argument
+        (cell_reference
+          (cell_pattern))))))
