@@ -1,0 +1,67 @@
+=====================
+dotted function name
+=====================
+
+=average.weighted(A1:A10, B1:B10)
+
+---
+
+(source_file
+  (function_call
+    function_name: (function_identifier)
+    (operator_expression
+      (cell_reference (cell_pattern))
+      (binary_operator)
+      (cell_reference (cell_pattern)))
+    (operator_expression
+      (cell_reference (cell_pattern))
+      (binary_operator)
+      (cell_reference (cell_pattern)))))
+
+=====================
+dotted sheet reference
+=====================
+
+=foo.bar!A1
+
+---
+
+(source_file
+  (cell_reference
+    (sheet_reference (function_identifier))
+    (cell_pattern)))
+
+=====================
+bracketed property access
+=====================
+
+=A1:A4.[file name]
+
+---
+
+(source_file
+  (bracket_access
+    (operator_expression
+      (cell_reference (cell_pattern))
+      (binary_operator)
+      (cell_reference (cell_pattern)))
+    (bracket_identifier)))
+
+=====================
+chained calls
+=====================
+
+=f()(1)("x")(A1)
+
+---
+
+(source_file
+ (function_call
+  (function_call
+   (function_call
+    (function_call
+     function_name: (identifier))
+    (number))
+   (string))
+  (cell_reference
+   (cell_pattern))))

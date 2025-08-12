@@ -1,0 +1,29 @@
+=let(funcs,
+    {
+        "SIN",
+        "COS",
+        "TAN",
+        "COT",
+        "ATN",
+        "EXP",
+        "LOG",
+        "ABS",
+        "SQR"
+    },
+    curfunc, regexextract(in, "^.*?("&join("|",funcs)&")([\d.-]+)"),
+    arg, index(curfunc, 2),
+    out, choose(match(single(curfunc),funcs,),
+            sin(arg),
+            cos(arg),
+            tan(arg),
+            cot(arg),
+            atan(arg),
+            exp(arg),
+            ln(arg),
+            abs(arg),
+            sqrt(arg)
+    ),
+    if(iserror(curfunc),in,
+        regexreplace(in, "(^.*?)("&join("|",funcs)&")([\d.-]+)", "$1"&out)
+    )
+)

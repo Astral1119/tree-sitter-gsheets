@@ -1,0 +1,40 @@
+=ArrayFormula(let(
+    mask, sequence(index(vars, 5) * index(vars, 6)),
+    zBuffer, tocol(split(index(vars, 19)," ")),
+    buffer, index(vars, 20),
+
+    x, calculateX(cubex, cubey, cubez, index(vars, 1), index(vars, 2), index(vars, 3)),
+    y, calculateY(cubex, cubey, cubez, index(vars, 1), index(vars, 2), index(vars, 3)),
+    z, calculateZ(cubex, cubey, cubez, index(vars, 1), index(vars, 2), index(vars, 3)) + index(vars,8),
+
+    ooz, 1 / z,
+
+    xp, index(vars, 5) / 2 + index(vars, 9) + index(vars, 10) * ooz * x * 2,
+    yp, index(vars, 6) / 2 + index(vars, 10) * ooz * y,
+    
+    idx, xp + yp * index(vars, 5),
+
+    buffers, if(and(idx >= 0, idx < index(vars, 5) * index(vars, 6)),
+                if(ooz > index(zBuffer, idx + 1),
+                    {
+                        query(if(mask = idx + 1, ooz, zBuffer),,9^9);
+                        replace(buffer, idx + 1, 1, ch)
+                    },
+                    {index(vars, 19);index(vars, 20)}
+                )
+    ),
+
+    {
+        chooserows(vars,
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+        );
+        x;
+        y;
+        z;
+        ooz;
+        xp;
+        yp;
+        idx;
+        buffers
+    }
+))

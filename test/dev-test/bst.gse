@@ -1,0 +1,82 @@
+=let(
+    rema,"This is an implementation of a Binary Search Tree in Google Sheets.",
+    remb,"This first section allows the user to pull the datum, left path, and right path of each node.",
+    remg,"If you want to use a different style of datum, you can just replace d with custom datum retrieval (i.e. for a map).",
+    d,lambda(datum,left,right,datum),
+    l,lambda(datum,left,right,left),
+    r,lambda(datum,left,right,right),
+    remc,"The find function returns the path in the form of a vector of 'l' and 'r's.",
+    find,lambda(find,path,tree,val,
+        if(
+            isna(tree(d)),
+            path,
+            if(tree(d)=val,
+                path,
+                if(tree(d)<val,
+                    find(find,{path;"r"},tree(r),val),
+                    find(find,{path;"l"},tree(l),val)
+                )
+            )
+        )
+    ),
+    remd,"The traverse function returns a node object from a path vector and a tree. Used with find.",
+    traverse,lambda(path,tree,
+        reduce(tree,path,
+            lambda(acc,cur,
+                if(cur="l",acc(l),acc(r))
+            )
+        )
+    ),
+    remh,"You can insert LAMBDAs, ranges, arrays, etc. with no data loss. You'll have to modify the implementation to accomodate the new datums, though.",
+    insert,lambda(insert,tree,val,
+        if(isna(tree(d)),
+            lambda(m,
+                m(val,NA(),NA())
+            ),
+            if(tree(d)<val,
+                lambda(m,
+                    m(tree(d),tree(l),insert(insert,tree(r),val))
+                ),
+                lambda(m,
+                    m(tree(d),insert(insert,tree(l),val),tree(r))
+                )
+            )
+        )
+    ),
+    insertmany,lambda(toinsert,tree,
+        reduce(tree,toinsert,
+            lambda(acc,cur,
+                insert(insert,acc,cur)
+            )
+        )
+    ),
+    size,lambda(size,tree,
+        if(
+            isna(tree(d)),
+            ,
+            size(size,tree(l))+size(size,tree(r))+1
+        )
+    ),
+    print,lambda(print,tree,
+        if(
+            isna(tree(d)),
+            tocol(,1),
+            {
+                print(print,tree(l));
+                tree(d);
+                print(print,tree(r))
+            }
+        )
+    ),
+    reme,"This delete implementation is a bit scuffed. It uses INSERTMANY and PRINT to save children nodes.",
+    delete,lambda(delete,tree,val,
+        if(isna(tree(d)),"how did you get here?",
+        if(tree(d)=val,insertmany(print(print,tree(r)),tree(l)),
+        if(tree(d)<val,
+            lambda(m,m(tree(d),tree(l),delete(delete,tree(r),val))),
+            lambda(m,m(tree(d),delete(delete,tree(l),val),tree(r)))
+        )))
+    ),
+    remf,"This is a test bit.",
+    print(print,delete(delete,insertmany({5;3;1;9;6;8;11},),9))
+)

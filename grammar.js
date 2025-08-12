@@ -10,7 +10,6 @@
 module.exports = grammar({
   name: "gsheets",
   extras: $ => [/\s/],
-
   supertypes: $ => [ $.expression ],
 
   rules: {

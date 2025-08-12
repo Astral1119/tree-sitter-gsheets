@@ -11,8 +11,9 @@ module.exports = {
 
   sheet_reference: $ => seq(
     choice(
-      $.quoted_sheet_name,
-      $.identifier
+      field('sheet_name', $.quoted_sheet_name),
+      field('sheet_name', alias(token(/[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z0-9_]+(?:\.[A-Za-z0-9_]+)*/), $.function_identifier)),
+      field('sheet_name', $.identifier)
     ),
     '!'
   ),
