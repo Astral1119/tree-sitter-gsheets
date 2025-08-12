@@ -1,0 +1,50 @@
+=let(
+  inf, 9^9,
+  normalized_edges, ArrayFormula({xmatch(choosecols(edges, 1, 2), vertices), index(edges,,3)}),
+  init, lambda(
+    idx,
+    choose(
+      idx,
+      PRIMVEC("push")(ArrayFormula(if(vertices = source, 0, inf))),
+      PRIMVEC("push")(sequence(rows(vertices),1,,))
+    )
+  ),
+  prelim, reduce(
+    init,
+    sequence(rows(vertices) - 1),
+    lambda(
+      acc,
+      cur,
+      reduce(
+        acc,
+        sequence(rows(normalized_edges)),
+        lambda(
+          acc_2,
+          edge_idx,
+          let(
+            u, index(normalized_edges, edge_idx, 1),
+            dist_u_plus_w, acc_2(1)(u) + index(normalized_edges, edge_idx, 3),
+            v, index(normalized_edges, edge_idx, 2),
+            if(
+              dist_u_plus_w < acc(1)(v),
+              lambda(
+                idx,
+                choose(
+                  idx,
+                  acc_2(1)("set")(v, dist_u_plus_w),
+                  acc_2(2)("set")(v, u)
+                )
+              ),
+              acc_2
+            )
+          )
+        )
+      )
+    )
+  ),
+  {
+    vertices,
+    prelim(1)("raw"),
+    map(prelim(2)("raw"), lambda(predecessor, if(predecessor, index(vertices, predecessor), #N/A)))
+  }
+)

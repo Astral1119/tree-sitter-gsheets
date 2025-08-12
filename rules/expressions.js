@@ -25,8 +25,13 @@ module.exports = {
     ")"
   ),
 
-  function_call: $ => prec(10, seq(
-    field("function_name", $.identifier),
+  // Allow chaining: f()(1)("set")(x)
+  function_call: $ => prec.left(10, seq(
+    choice(
+      field("function_name", $.identifier),
+      $.function_call,
+      $.parenthesized_expression,
+    ),
     "(",
     optional(sepBy(",", optional($.expression))),
     ")"
